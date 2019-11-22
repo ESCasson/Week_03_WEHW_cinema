@@ -7,14 +7,14 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 class CustomerTest < MiniTest::Test
 
 def test_create_customer_with_name_and_funds
-  customer1 = {
+  customer1 = Customer.new({
     'name' => 'Sarah',
     'funds' => 50,
-  }
-customer_sarah = Customer.new(customer1)
+  })
 
-assert_equal('Sarah', customer_sarah.name)
-assert_equal(50, customer_sarah.funds)
+
+assert_equal('Sarah', customer1.name)
+assert_equal(50, customer1.funds)
 end
 
 end
