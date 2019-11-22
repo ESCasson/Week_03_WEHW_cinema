@@ -22,7 +22,7 @@ customer3 = Customer.new({
     customer2.save()
     customer3.save()
 
-    customer1.read()
+
 
 
 

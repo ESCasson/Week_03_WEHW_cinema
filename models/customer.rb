@@ -36,5 +36,11 @@ def self.select_all()
   return result.map{|customer| Customer.new(customer)}
 end
 
+def update(new_name, new_funds)
+  sql = "UPDATE customers SET (name, funds) = ($1, $2) WHERE id = $3"
+  values = [new_name, new_funds, @id]
+  SqlRunner.run(sql, values)
+end
+
 
 end
