@@ -23,7 +23,7 @@ def self.delete_all()
   SqlRunner.run(sql)
 end
 
-def read()
+def select()
   sql = "SELECT * FROM customers WHERE id = $1"
   values = [@id]
   result = SqlRunner.run(sql, values)
