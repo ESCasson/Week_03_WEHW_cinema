@@ -35,7 +35,13 @@ def self.select_all()
   sql = "SELECT * FROM tickets"
   result = SqlRunner.run(sql)
   return result.map{|ticket| Ticket.new(ticket)}
-  
+end
+
+def update(new_title_id, new_customer_id)
+  sql = "UPDATE tickets SET (film_id, customer_id) =
+  ($1, $2) WHERE id = $3"
+  values = [new_title_id, new_customer_id, @id]
+  SqlRunner.run(sql, values)
 end
 
 
