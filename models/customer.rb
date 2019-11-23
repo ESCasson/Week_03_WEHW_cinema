@@ -58,6 +58,9 @@ def films_by_customer()
   return result.map{|film| Film.new(film)}
 end
 
-
+def reduce_funds(amount)
+  new_funds = @funds - amount
+  update(@name, new_funds)
+end
 
 end
