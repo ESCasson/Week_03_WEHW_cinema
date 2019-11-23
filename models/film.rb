@@ -37,6 +37,13 @@ def self.select_all()
   return result.map{|film| Film.new(film)}
 end
 
+def self.select_by_id(id)
+  sql = "SELECT * FROM films WHERE id = $1"
+  values = [id]
+  result = SqlRunner.run(sql, values)
+  return Film.new(result[0])
+end
+
 def update(new_title, new_price)
   sql = "UPDATE films SET (title, price) = ($1, $2) WHERE id = $3"
   values = [new_title, new_price, @id]
@@ -56,8 +63,16 @@ def customers_by_film()
   values =[@id]
   result = SqlRunner.run(sql, values)
   return result.map{|customer| Customer.new(customer)}
-
 end
 
+def customers_by_film_count()
+  result = customers_by_film.length()
+end
+
+def unique_customers_by_film_count()
+  result = customers_by_film()
+  result = result.map{|customer| customer.name}
+  return result.uniq.length()
+end
 
 end

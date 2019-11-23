@@ -37,6 +37,13 @@ def self.select_all()
   return result.map{|customer| Customer.new(customer)}
 end
 
+def self.select_by_id(id)
+  sql = "SELECT * FROM customers WHERE id = $1"
+  values = [id]
+  result = SqlRunner.run(sql, values)
+  return Customer.new(result[0])
+end
+
 def update(new_name, new_funds)
   sql = "UPDATE customers SET (name, funds) = ($1, $2) WHERE id = $3"
   values = [new_name, new_funds, @id]
@@ -61,6 +68,18 @@ end
 def reduce_funds(amount)
   new_funds = @funds - amount
   update(@name, new_funds)
+end
+
+def gets_tickets_by_customer()
+  sql = "SELECT * FROM tickets WHERE customer_id = $1"
+  values = [@id]
+  results = SqlRunner.run(sql, values)
+  return results.map{|ticket| Ticket.new(ticket)}
+end
+
+def ticket_count()
+  result = gets_tickets_by_customer()
+  return result.length()
 end
 
 end

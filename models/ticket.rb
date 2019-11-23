@@ -50,23 +50,10 @@ def delete()
   SqlRunner.run(sql, values)
 end
 
-def select_customer_by_ticket()
-  sql = "SELECT * FROM customers WHERE id = $1"
-  values = [@customer_id]
-  result = SqlRunner.run(sql, values)
-  return Customer.new(result[0])
-end
-
-def select_film_by_ticket()
-  sql = "SELECT * FROM films WHERE id = $1"
-  values = [@film_id]
-  result = SqlRunner.run(sql, values)
-  return Film.new(result[0])
-end
 
 def customer_buys_ticket()
-  customer = select_customer_by_ticket()
-  film = select_film_by_ticket()
+  customer = Customer.select_by_id(@customer_id)
+  film = Film.select_by_id(@film_id)
   amount = film.price()
   customer.reduce_funds(amount)
 end
