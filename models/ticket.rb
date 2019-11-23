@@ -2,10 +2,11 @@ require_relative('../db/sql_runner.rb')
 class Ticket
 
   attr_reader :id
-  attr_accessor :film_id, :customer_id
+  attr_accessor :film_id, :customer_id, :screening_id
 
   def initialize(details)
     @id = details['id'].to_i() if details['id']
+    @screening_id = details['screening_id']
     @film_id = details['film_id'].to_i()
     @customer_id = details['customer_id'].to_i()
   end
