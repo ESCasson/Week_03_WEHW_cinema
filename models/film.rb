@@ -37,5 +37,11 @@ def self.select_all()
   return result.map{|film| Film.new(film)}
 end
 
+def update(new_title, new_price)
+  sql = "UPDATE films SET (title, price) = ($1, $2) WHERE id = $3"
+  values = [new_title, new_price, @id]
+  SqlRunner.run(sql, values)
+end
+
 
 end
