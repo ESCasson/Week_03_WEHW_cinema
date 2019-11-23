@@ -24,4 +24,20 @@ class Ticket
     SqlRunner.run(sql)
   end
 
+def select()
+  sql = "SELECT * FROM tickets WHERE id = $1"
+  values = [@id]
+  result = SqlRunner.run(sql, values)
+  return Ticket.new(result[0])
+end
+
+def self.select_all()
+  sql = "SELECT * FROM tickets"
+  result = SqlRunner.run(sql)
+  return result.map{|ticket| Ticket.new(ticket)}
+  
+end
+
+
+
 end
