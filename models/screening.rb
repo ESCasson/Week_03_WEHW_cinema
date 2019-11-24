@@ -24,4 +24,11 @@ class Screening
     SqlRunner.run(sql)
   end
 
+  def select()
+    sql = "SELECT * FROM screenings WHERE id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    return Screening.new(result[0])
+  end
+
 end
