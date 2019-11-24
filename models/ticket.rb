@@ -12,9 +12,9 @@ class Ticket
   end
 
   def save()
-    sql = "INSERT INTO tickets (film_id, customer_id)
-    VALUES ($1, $2) RETURNING id;"
-    values = [@film_id, @customer_id]
+    sql = "INSERT INTO tickets (screening_id, film_id, customer_id)
+    VALUES ($1, $2, $3) RETURNING id;"
+    values = [@screening_id, @film_id, @customer_id]
     result = SqlRunner.run(sql, values)
     @id = result[0]['id'].to_i()
 
@@ -38,10 +38,10 @@ def self.select_all()
   return result.map{|ticket| Ticket.new(ticket)}
 end
 
-def update(new_title_id, new_customer_id)
-  sql = "UPDATE tickets SET (film_id, customer_id) =
-  ($1, $2) WHERE id = $3"
-  values = [new_title_id, new_customer_id, @id]
+def update(new_screening_id, new_title_id, new_customer_id)
+  sql = "UPDATE tickets SET (screening_id, film_id, customer_id) =
+  ($1, $2, $3) WHERE id = $4"
+  values = [new_screening_id, new_title_id, new_customer_id, @id]
   SqlRunner.run(sql, values)
 end
 

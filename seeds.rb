@@ -2,8 +2,10 @@ require('pry')
 require_relative('models/customer')
 require_relative('models/film')
 require_relative('models/ticket')
+require_relative('models/screening')
 
 Ticket.delete_all()
+Screening.delete_all()
 Customer.delete_all()
 Film.delete_all()
 
@@ -45,28 +47,73 @@ customer3 = Customer.new({
     film2.save()
     film3.save()
 
+    screening1 = Screening.new({
+      'time' => '20:00',
+      'ticket_limit' => '3',
+      'film_id' => film1.id
+      })
+
+    screening2 = Screening.new({
+        'time' => '17:00',
+        'ticket_limit' => '4',
+        'film_id' => film1.id
+        })
+
+    screening3 = Screening.new({
+            'time' => '18:00',
+            'ticket_limit' => '4',
+            'film_id' => film2.id
+            })
+
+screening1.save()
+screening2.save()
+screening3.save()
+
+
+
     ticket1 = Ticket.new({
-      'film_id' => film1.id,
+      'screening_id' => screening1.id,
+      'film_id' => screening1.film_id,
       'customer_id' => customer1.id
       })
+
     ticket2 = Ticket.new({
-        'film_id' => film1.id,
+      'screening_id' => screening1.id,
+        'film_id' => screening1.film_id,
         'customer_id' => customer2.id
         })
+
     ticket3 = Ticket.new({
-            'film_id' => film2.id,
-            'customer_id' => customer1.id
+      'screening_id' => screening1.id,
+        'film_id' => screening1.film_id,
+        'customer_id' => customer3.id
             })
 
     ticket4 = Ticket.new({
-      'film_id' => film1.id,
-      'customer_id' => customer1.id
+      'screening_id' => screening2.id,
+        'film_id' => screening2.film_id,
+        'customer_id' => customer2.id
       })
+
+  ticket5 = Ticket.new({
+    'screening_id' => screening3.id,
+      'film_id' => screening3.film_id,
+      'customer_id' => customer3.id
+    })
+
+    ticket6 = Ticket.new({
+      'screening_id' => screening1.id,
+        'film_id' => screening1.film_id,
+        'customer_id' => customer3.id
+          })
+
+
 
 ticket1.save()
 ticket2.save()
 ticket3.save()
 ticket4.save()
+ticket5.save()
 
     binding.pry
     nil
