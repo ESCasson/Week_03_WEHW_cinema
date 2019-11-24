@@ -31,4 +31,12 @@ class Screening
     return Screening.new(result[0])
   end
 
+  def update(new_time, new_ticket_limit, new_film_id)
+    sql = "UPDATE screenings SET
+    (time, ticket_limit, film_id) = ($1, $2, $3)
+    WHERE id = $4"
+    values = [new_time, new_ticket_limit, new_film_id, @id]
+    SqlRunner.run(sql, values)
+  end
+
 end
