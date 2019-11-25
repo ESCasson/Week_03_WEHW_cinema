@@ -59,8 +59,30 @@ def customer_buys_ticket()
   customer.reduce_funds(amount)
 end
 
+def count_tickets_by_screening()
+  sql = "SELECT COUNT(screening_id) FROM tickets
+  WHERE screening_id = $1"
+  values = [@screening_id]
+  result = SqlRunner.run(sql, values)
+  result = result[0]
+  return result["count"].to_i()
+end
 
+def screening_limit()
+  sql = "SELECT ticket_limit FROM screenings WHERE id = $1"
+  values = [@screening_id]
+  result = result = SqlRunner.run(sql, values)
+  result = result[0]
+  return result["ticket_limit"].to_i()
+end
 
+def checks_space_in_screening
+  if count_tickets_by_screening() < screening_limit()
+    return "You can buy a ticket"
+  else
+    return "Screening is full"
+  end
+end
 
 
 end

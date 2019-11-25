@@ -49,7 +49,7 @@ customer3 = Customer.new({
 
     screening1 = Screening.new({
       'time' => '20:00',
-      'ticket_limit' => '3',
+      'ticket_limit' => '4',
       'film_id' => film1.id
       })
 
