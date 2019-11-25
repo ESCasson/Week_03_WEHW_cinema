@@ -75,4 +75,20 @@ def unique_customers_by_film_count()
   return result.uniq.length()
 end
 
+def count_tickets_by_screenings()
+  sql = "SELECT screening_id, COUNT(screening_id) FROM tickets WHERE film_id = $1
+  GROUP BY (screening_id) ORDER BY COUNT(screening_id) DESC LIMIT 1;"
+  values = [@id]
+  result = SqlRunner.run(sql, values)
+  result = Ticket.new(result[0])
+  screen_id = result.screening_id.to_i()
+  sql2 = "SELECT * FROM screenings WHERE id = $1"
+  values2 = [screen_id]
+  result = SqlRunner.run(sql2, values2)
+  return Screening.new(result[0]).time
+
+end
+
+
+
 end
